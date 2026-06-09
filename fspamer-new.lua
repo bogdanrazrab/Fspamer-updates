@@ -7,10 +7,10 @@ local requests = require 'requests'
 
 local current_version = 1.2
 local url_version = "https://raw.githubusercontent.com/bogdanrazrab/Fspamer-updates/refs/heads/main/version.txt"
-local url_script = ""
+local url_script = "https://raw.githubusercontent.com/bogdanrazrab/Fspamer-updates/refs/heads/main/fspamer-new.lua"
 
 local active = imgui.new.bool(false)
-local spamText = imgui.new.char[256](u8"текст")
+local spamText = imgui.new.char[256](u8"ГІГҐГЄГ±ГІ")
 local delay = imgui.new.int(3)
 local WinState = imgui.new.bool(false)
 
@@ -22,9 +22,9 @@ imgui.OnFrame(function() return WinState[0] or UpdateWinState[0] end, function(p
         imgui.SetNextWindowSize(imgui.ImVec2(400, 200), imgui.Cond.FirstUseEver)
         
         if imgui.Begin("FSPAMER | Dev: Fier", WinState) then
-            if imgui.InputText(u8"Текст", spamText, 256) then end
-            if imgui.SliderInt(u8"Секунды", delay, 1, 60) then end
-            if imgui.Button(active[0] and u8"Стоп" or u8"Начать", imgui.ImVec2(-1, 40)) then
+            if imgui.InputText(u8"Г’ГҐГЄГ±ГІ", spamText, 256) then end
+            if imgui.SliderInt(u8"Г‘ГҐГЄГіГ­Г¤Г»", delay, 1, 60) then end
+            if imgui.Button(active[0] and u8"Г‘ГІГ®ГЇ" or u8"ГЌГ Г·Г ГІГј", imgui.ImVec2(-1, 40)) then
                 active[0] = not active[0]
             end
             imgui.End()
@@ -35,20 +35,20 @@ imgui.OnFrame(function() return WinState[0] or UpdateWinState[0] end, function(p
         imgui.SetNextWindowSize(imgui.ImVec2(350, 140), imgui.Cond.Always)
         imgui.SetNextWindowPos(imgui.ImVec2(imgui.GetIO().DisplaySize.x / 2, imgui.GetIO().DisplaySize.y / 2), imgui.Cond.Always, imgui.ImVec2(0.5, 0.5))
         
-        if imgui.Begin(u8"Доступно обновление!", UpdateWinState, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
-            imgui.Text(u8"Доступна новая версия скрипта: v" .. server_version_str)
-            imgui.Text(u8"Вы хотите обновиться прямо сейчас?")
+        if imgui.Begin(u8"Г„Г®Г±ГІГіГЇГ­Г® Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ!", UpdateWinState, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
+            imgui.Text(u8"Г„Г®Г±ГІГіГЇГ­Г  Г­Г®ГўГ Гї ГўГҐГ°Г±ГЁГї Г±ГЄГ°ГЁГЇГІГ : v" .. server_version_str)
+            imgui.Text(u8"Г‚Г» ГµГ®ГІГЁГІГҐ Г®ГЎГ­Г®ГўГЁГІГјГ±Гї ГЇГ°ГїГ¬Г® Г±ГҐГ©Г·Г Г±?")
             imgui.Separator()
             imgui.Spacing()
             
-            if imgui.Button(u8"Да, обновить", imgui.ImVec2(140, 35)) then
+            if imgui.Button(u8"Г„Г , Г®ГЎГ­Г®ГўГЁГІГј", imgui.ImVec2(140, 35)) then
                 UpdateWinState[0] = false
                 downloadUpdate()
             end
             imgui.SameLine(180)
-            if imgui.Button(u8"Пропустить", imgui.ImVec2(140, 35)) then
+            if imgui.Button(u8"ГЏГ°Г®ГЇГіГ±ГІГЁГІГј", imgui.ImVec2(140, 35)) then
                 UpdateWinState[0] = false
-                sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Обновление пропущено пользователем.", -1)
+                sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГЇГ°Г®ГЇГіГ№ГҐГ­Г® ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ¬.", -1)
             end
             imgui.End()
         end
@@ -72,20 +72,20 @@ end
 
 function downloadUpdate()
     lua_thread.create(function()
-        sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Скачивание новой версии...", -1)
+        sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Г‘ГЄГ Г·ГЁГўГ Г­ГЁГҐ Г­Г®ГўГ®Г© ГўГҐГ°Г±ГЁГЁ...", -1)
         local script_status, script_response = pcall(requests.get, url_script)
         if script_status and script_response.status_code == 200 then
             local file = io.open(thisScript().path, "wb")
             if file then
                 file:write(script_response.text)
                 file:close()
-                sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Скрипт успешно обновлен! Перезагрузка...", -1)
+                sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Г‘ГЄГ°ГЁГЇГІ ГіГ±ГЇГҐГёГ­Г® Г®ГЎГ­Г®ГўГ«ГҐГ­! ГЏГҐГ°ГҐГ§Г ГЈГ°ГіГ§ГЄГ ...", -1)
                 thisScript():reload()
             else
-                sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Ошибка: не удалось открыть локальный файл для записи.", -1)
+                sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} ГЋГёГЁГЎГЄГ : Г­ГҐ ГіГ¤Г Г«Г®Г±Гј Г®ГІГЄГ°Г»ГІГј Г«Г®ГЄГ Г«ГјГ­Г»Г© ГґГ Г©Г« Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ.", -1)
             end
         else
-            sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Ошибка при скачивании файла обновления с сервера.", -1)
+            sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ Г±ГЄГ Г·ГЁГўГ Г­ГЁГЁ ГґГ Г©Г«Г  Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї Г± Г±ГҐГ°ГўГҐГ°Г .", -1)
         end
     end)
 end
@@ -93,8 +93,8 @@ end
 function main()
     while not isSampAvailable() do wait(100) end
 
-    sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Скрипт загружен. Автор: {3399FF}Fier", -1)
-    sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Активация меню: {3399FF}/fpanel", -1)
+    sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} Г‘ГЄГ°ГЁГЇГІ Г§Г ГЈГ°ГіГ¦ГҐГ­. ГЂГўГІГ®Г°: {3399FF}Fier", -1)
+    sampAddChatMessage("{3399FF}[FSPAMER]{FFFFFF} ГЂГЄГІГЁГўГ Г¶ГЁГї Г¬ГҐГ­Гѕ: {3399FF}/fpanel", -1)
     
     checkUpdates()
     
