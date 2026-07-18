@@ -5,7 +5,7 @@ local u8 = encoding.UTF8
 local ffi = require 'ffi'
 local requests = require 'requests'
 
-local current_version = 1.3
+local current_version = 1.4
 local url_version = "https://raw.githubusercontent.com/bogdanrazrab/Fspamer-updates/refs/heads/main/version.txt"
 local url_script = "https://raw.githubusercontent.com/bogdanrazrab/Fspamer-updates/refs/heads/main/fspamer-new.lua"
 
@@ -83,7 +83,7 @@ imgui.OnFrame(function() return WinState[0] or UpdateWinState[0] end, function(p
         
         if imgui.Begin(u8"Доступно обновление!", UpdateWinState, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
             imgui.Text(u8"Доступна новая версия скрипта: v" .. server_version_str)
-            imgui.Text(u8"Вы хотите обновиться прямо сейчас?")
+            imgui.Text(u8"Вы хотите обновиться сейчас?")
             imgui.Separator()
             imgui.Spacing()
             
@@ -94,7 +94,7 @@ imgui.OnFrame(function() return WinState[0] or UpdateWinState[0] end, function(p
             imgui.SameLine(220)
             if imgui.Button(u8"Пропустить", imgui.ImVec2(160, 40)) then
                 UpdateWinState[0] = false
-                sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Обновление пропущено пользователем.", -1)
+                sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Обновление пропущено пользователем.", -1)
             end
             imgui.End()
         end
@@ -118,20 +118,20 @@ end
 
 function downloadUpdate()
     lua_thread.create(function()
-        sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Скачивание новой версии...", -1)
+        sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Скачивание новой версии...", -1)
         local script_status, script_response = pcall(requests.get, url_script)
         if script_status and script_response.status_code == 200 then
             local file = io.open(thisScript().path, "wb")
             if file then
                 file:write(script_response.text)
                 file:close()
-                sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Скрипт успешно обновлен! Перезагрузка...", -1)
+                sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Скрипт успешно обновлен! Перезагрузка...", -1)
                 thisScript():reload()
             else
-                sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Ошибка: не удалось открыть локальный файл для записи.", -1)
+                sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Ошибка: не удалось открыть локальный файл для записи.", -1)
             end
         else
-            sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Ошибка при скачивании файла обновления с сервера.", -1)
+            sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Ошибка при скачивании файла обновления с сервера.", -1)
         end
     end)
 end
@@ -154,8 +154,8 @@ end
 function main()
     while not isSampAvailable() do wait(100) end
 
-    sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Скрипт загружен. Автор: {FF3333}Fier", -1)
-    sampAddChatMessage("{FF3333}[FSPAMER]{FFFFFF} Активация меню: {FF3333}/fpanel", -1)
+    sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Скрипт загружен. Автор: {FF3333}Fizer", -1)
+    sampAddChatMessage("{FF3333}[FiFlooder]{FFFFFF} Активация меню: {FF3333}/fpanel", -1)
     
     checkUpdates()
     runSpammer()
